@@ -1,50 +1,130 @@
-# Real-Time Checkbox Grid
+# ⚡ Real-Time Checkbox Grid
 
-A shared checkbox grid with real-time updates across users.
+A collaborative, real-time checkbox grid where multiple users can connect, interact, and see updates instantly. Built with modern real-time architecture and powered by Redis for shared state.
 
-## Features
-- WebSocket-based real-time sync
-- Redis-backed bit storage for efficient checkbox state
-- Redis Pub/Sub broadcasting
-- JWT login authentication
-- Custom rate limiting with 5-second cooldown
-- Toast notifications and connected user badge
+🌐 **Live Demo:**  
+https://real-time-checkbox-grid-production.up.railway.app/
 
-## Tech Stack
-- Frontend: HTML, CSS, JavaScript
-- Backend: Node.js, Express
-- Realtime: `ws`
-- Redis: Upstash via `@upstash/redis`
-- Auth: JWT
+---
 
-## Setup
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+## 🚀 Features
 
-2. Copy environment variables:
-   ```bash
-   copy .env.example .env
-   ```
+- 🟢 Real-time updates across all connected users  
+- 👥 Live user count tracking  
+- 🔄 Instant sync using WebSockets  
+- ⚡ Redis-backed shared state  
+- 🔐 Simple username-based login system  
+- 🎯 Smooth and responsive UI  
 
-3. Fill in your Upstash Redis URL and token in `.env`.
+---
 
-4. Start the server:
-   ```bash
-   npm start
-   ```
+## 🖼️ Preview
 
-5. Open `http://localhost:3000` in the browser.
+![App Screenshot](./assets/preview.png)
 
-## Environment Variables
-- `UPSTASH_REDIS_REST_URL` - Upstash Redis REST URL
-- `UPSTASH_REDIS_REST_TOKEN` - Upstash Redis auth token
-- `JWT_SECRET` - JWT secret for token signing
-- `PORT` - optional server port
+> Add your screenshot in a folder like `/assets` and update the path above.
 
-## Usage
-- Click **Login / Connect** and enter a username.
-- The grid will load the current shared state.
-- Toggling a checkbox updates Redis and broadcasts to all connected users.
-- Rapid clicking is limited to 4 toggles in 2 seconds, then a 5-second cooldown is enforced.
+---
+
+## 🏗️ Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** Node.js  
+- **Real-time Communication:** WebSockets / Socket.IO  
+- **Database / Cache:** Redis (Upstash / Railway)  
+- **Deployment:** Railway  
+
+---
+
+## 📦 Installation & Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/rishiwaghdev/real-time-checkbox-grid.git
+cd real-time-checkbox-grid
+```
+
+### 2. Install dependencies
+```bash
+pnpm install
+# or
+npm install
+```
+
+### 3. Setup environment variables
+
+Create a `.env` file:
+
+```env
+REDIS_URL=https://funny-bulldog-77766.upstash.io
+PORT=3000
+```
+
+### 4. Run the app
+```bash
+pnpm dev
+# or
+npm run dev
+```
+
+---
+
+## 🌍 How It Works
+
+- User enters a username and connects  
+- A shared grid is loaded from Redis  
+- When a checkbox is toggled:
+  - Update is sent to the server  
+  - Server updates Redis  
+  - Broadcasts change to all connected clients  
+- All users see changes instantly ⚡  
+
+---
+
+## 📁 Project Structure
+
+```
+├── server/
+│   ├── index.js
+│   └── redis.js
+├── client/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+├── .env
+├── package.json
+└── README.md
+```
+
+---
+
+## 🔥 Future Improvements
+
+- ✅ Authentication system (JWT / OAuth)  
+- 🎨 Custom grid sizes  
+- 📊 Activity logs / history  
+- 🧑‍🤝‍🧑 User presence indicators  
+- 🟦 Color-coded users  
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repo  
+2. Create your feature branch  
+3. Commit your changes  
+4. Push and open a PR  
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 💡 Inspiration
+
+Built to explore real-time systems, WebSockets, and distributed state management using Redis.
