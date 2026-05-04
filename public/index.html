@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Checkbox Grid</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <div>
+        <h1>⚡ Real-Time Checkbox Grid</h1>
+        <p>Shared grid, instant updates, Redis-backed state.</p>
+      </div>
+      <div class="status-bar">
+        <span id="connectedBadge" class="badge">Not connected</span>
+        <span id="userBadge" class="badge hidden"></span>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <div class="info-panel">
+        <strong id="connectedCount">Connected: 0</strong>
+        <span id="gridSize">Grid: 20 x 20</span>
+      </div>
+      <button id="loginButton" class="primary">Login / Connect</button>
+    </section>
+
+    <div id="gridContainer" class="grid hidden"></div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <div id="loginOverlay" class="overlay hidden">
+    <div class="modal">
+      <h2>Login to join the grid</h2>
+      <p>Enter a username to connect in real time.</p>
+      <input id="usernameInput" type="text" placeholder="Username" maxlength="20" />
+      <div class="modal-actions">
+        <button id="submitLogin" class="primary">Connect</button>
+        <button id="closeLogin" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
