@@ -197,8 +197,8 @@ async function sendInitialState(socket) {
 }
 
 wss.on('connection', async (socket, req) => {
-  const params = new URLSearchParams(req.url.replace('/ws?', ''));
-  const token = params.get('token');
+  const url = new URL(req.url, 'http://localhost');
+  const token = url.searchParams.get('token');
 
   if (!token) {
     socket.close(1008, 'Missing authentication token.');
@@ -258,6 +258,6 @@ if (useRedis && sub) {
   console.log('Redis Pub/Sub disabled: broadcasting directly to connected clients only.');
 }
 
-server.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`);
 });

@@ -61,9 +61,9 @@ function renderGrid() {
 
 function updateCheckbox(index, checked) {
   gridState[index] = checked ? 1 : 0;
-  const cell = gridContainer.querySelector(`[data-index="${index}"]`);
-  if (cell) {
-    cell.checked = checked;
+  const checkbox = gridContainer.querySelector(`[data-index="${index}"]`);
+  if (checkbox) {
+    checkbox.checked = checked;
   }
 }
 
@@ -82,13 +82,16 @@ function onCheckboxToggle(event) {
   const index = Number(checkbox.dataset.index);
   const checked = checkbox.checked;
 
-  if (!socket || socket.readyState !== WebSocket.OPEN) {
-    showToast('Not connected yet.', 'error');
-    checkbox.checked = !checked;
-    return;
-  }
+  // Update local state immediately
+  gridState[index] = checked ? 1 : 0;
 
-  socket.send(JSON.stringify({ type: 'toggle', index, checked }));
+  // If connected, send to server
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    socket.send(JSON.stringify({ type: 'toggle', index, checked }));
+  } else {
+    // Show offline message but allow local changes
+    showToast('Working offline - changes not synced.', 'info');
+  }
 }
 
 async function loginUser(name) {
@@ -110,6 +113,10 @@ async function loginUser(name) {
     token = data.token;
     updateUserBadge(username);
     closeLoginOverlay();
+    
+    // Show grid immediately after login, don't wait for WebSocket
+    renderGrid();
+    
     connectSocket();
   } catch (error) {
     showToast(error.message, 'error');
@@ -140,7 +147,13 @@ function connectSocket() {
 
     if (payload.type === 'init') {
       gridState = payload.grid;
-      renderGrid();
+      // Grid is already rendered after login, just update the state
+      payload.grid.forEach((checked, index) => {
+        const checkbox = gridContainer.querySelector(`[data-index="${index}"]`);
+        if (checkbox) {
+          checkbox.checked = checked === 1;
+        }
+      });
       updateConnectedCount(payload.connected || 1);
       updateUserBadge(payload.username);
       return;
