@@ -20,9 +20,9 @@ https://real-time-checkbox-grid-production.up.railway.app/
 
 ## 🖼️ Preview
 
-![App Screenshot](./assets/preview.png)
-
-> Add your screenshot in a folder like `/assets` and update the path above.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/rishiwaghdev/Real-Time-Checkbox-Grid/main/asset/Screenshot.png" width="800"/>
+</p>
 
 ---
 
